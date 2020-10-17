@@ -96,17 +96,5 @@ inquirer
 
 
 
-// inquirer
-//   .prompt( employeeQuestions
-    
-// )
-//   .then(function(response) {
-//     name=response.name;
-//     id=response.id;
-//     email=response.email;
-
-//     console.log(name +" " +id+ " " + email);
-   
-//   });
 
 
