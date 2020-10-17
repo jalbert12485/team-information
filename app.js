@@ -43,6 +43,7 @@ let name;
 let id; 
 let email;
 let extraInfo;
+let employees=[];
 
 
 const roleQuestion=[new Question("input", "What is the role of the employee?","role")];
@@ -51,6 +52,18 @@ const specificQuestions={   manager: [new Question("input", "What is the employe
                             engineer:[new Question("input", "What is the employee's GitHub user name?","extraInfo")],
                             intern: [new Question("input", "What is the employee's school?","extraInfo")] };
 
+
+
+fs.readFile("employee.txt","utf8",function(err,data){
+    if(err) throw err;
+
+    employees=JSON.parse(data);
+    determineRole();
+})
+
+
+
+function determineRole(){
 inquirer
   .prompt( roleQuestion
     
@@ -60,41 +73,41 @@ inquirer
     if(!(role == "manager" || role=="engineer" || role=="intern")){
         throw "Error: Role must be manager, engineer or intern";
     }
+    remainingQuest();
 
-    let remainingQuestions=employeeQuestions.concat(specificQuestions[`${role}`]);
 
-        inquirer
-            .prompt( remainingQuestions
-    
-            )
-            .then(function(response) {
-                name=response.name;
-                id=response.id;
-                email=response.email;
-                extraInfo=response.extraInfo;
-
-                let inputEmployee;
-                switch(role){
-                    case "manager":
-                        inputEmployee=new Manager(name, id, email, extraInfo);
-                        break;
-                    case "engineer":
-                        inputEmployee=new Engineer(name, id, email, extraInfo);
-                        break;
-                    case "intern":
-                        inputEmployee=new Intern(name, id, email, extraInfo);
-                        break;
-                }
-                fs.appendFile("employee.txt",JSON.stringify(inputEmployee, null, 2), err=> {if(err) throw err;});
-
-            });
-
-  });
+  });}
 
 
 
+function remainingQuest() {
+  let remainingQuestions=employeeQuestions.concat(specificQuestions[`${role}`]);
 
+  inquirer
+      .prompt( remainingQuestions
 
+      )
+      .then(function(response) {
+          name=response.name;
+          id=response.id;
+          email=response.email;
+          extraInfo=response.extraInfo;
 
+          let inputEmployee;
+          switch(role){
+              case "manager":
+                  inputEmployee=new Manager(name, id, email, extraInfo);
+                  break;
+              case "engineer":
+                  inputEmployee=new Engineer(name, id, email, extraInfo);
+                  break;
+              case "intern":
+                  inputEmployee=new Intern(name, id, email, extraInfo);
+                  break;
+          }
+          employees.push(inputEmployee);
+          fs.writeFile("employee.txt",JSON.stringify(employees, null, 2), err=> {if(err) throw err;});
 
+      });}
 
+      
