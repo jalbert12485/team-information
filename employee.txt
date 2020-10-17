@@ -1,0 +1,6 @@
+{
+  "name": "Justin",
+  "id": "1",
+  "email": "jalbert@carthage.edu",
+  "officeNumber": "1"
+}
