@@ -5,5 +5,26 @@
     "email": "jalbert@carthage.edu",
     "role": "Manager",
     "officeNumber": "1"
+  },
+  {
+    "name": "Arthur",
+    "id": "2",
+    "email": "arthur@gmail.com",
+    "role": "Engineer",
+    "github": "arthur"
+  },
+  {
+    "name": "Teddy",
+    "id": "3",
+    "email": "teddy@gmail.com",
+    "role": "Intern",
+    "school": "Home"
+  },
+  {
+    "name": "Paula",
+    "id": "4",
+    "email": "paula@gmail.com",
+    "role": "Engineer",
+    "github": "paula"
   }
 ]
