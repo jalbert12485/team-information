@@ -1,36 +1,9 @@
 [
   {
-    "name": "Justin",
+    "name": "Justin Albert",
     "id": "1",
     "email": "jalbert@carthage.edu",
-    "officeNumber": "1"
-  },
-  {
-    "name": "Justin Albert",
-    "id": "2",
-    "email": "someting@gmail.com",
-    "role": "Engineer",
-    "github": "jalbert12485"
-  },
-  {
-    "name": "John",
-    "id": "3",
-    "email": "john@nu.edu",
-    "role": "Intern",
-    "school": "northwestern"
-  },
-  {
-    "name": "Joe",
-    "id": "4",
-    "email": "joe.gmail.com",
-    "role": "Intern",
-    "school": "marquette"
-  },
-  {
-    "name": "None",
-    "id": "5",
-    "email": "none@gmail.com",
     "role": "Manager",
-    "officeNumber": "9"
+    "officeNumber": "1"
   }
 ]
