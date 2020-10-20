@@ -2,7 +2,7 @@ const employees=[{"name":"Paula","id":"1","email":"paula@gmail.com","role":"Mana
   
   let viewedEmployee=employees[employees.length-1];
   
-  
+    
   function displayEmployeeList(){
       for(let i=0; i< employees.length; i++){
           let newLI=$("<li>");

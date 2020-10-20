@@ -14,8 +14,6 @@ const renderJs = require("./lib/renderjs");
 
 
 
-
-
 // Declaring variables for employee information.
 let role;
 let name;
@@ -33,23 +31,27 @@ const specificQuestions={   manager: [new Question("input", "What is the employe
                             engineer:[new Question("input", "What is the employee's GitHub user name?","extraInfo")],
                             intern: [new Question("input", "What is the employee's school?","extraInfo")] };
 
-// Gets the existing employee information from the saved file.
 
+// Gets the existing employee information from the saved file.
 fs.readFile("employee.txt","utf8",function(err,data){
     if(err) throw err;
 
     employees=JSON.parse(data);
     purpose();
-})
+});
+
+
+
 
 // Gets user input to determine if they want to add, remove or display team information.  Then sends off to the next functions based on that input.
 
 function purpose(){
+ 
   inquirer
     .prompt( [{ 
       type: "list",
       message: "Do you want to add, remove or display team members?",
-      choices: ["Add","Remove","Display"],
+      choices: ["Add","Remove","Display","Stop"],
       name: "choice"
     }]
       
@@ -65,10 +67,17 @@ function purpose(){
             break;
           case "Display":
             render(employees);
-            console.log("Open index.html in browser");
+            console.log("Open index.html in browser to view team.");
+            break;
+          case "Stop":
+            process.exit();
       }
   
-    });}
+    });
+
+
+ 
+  }
 
 // If the user wants to add a user, we determine what role the user will assign to the new employee.  We then run validation on the input.
 
@@ -82,12 +91,14 @@ inquirer
     if(role=="manager"){
       for(let i=0; i<employees.length;i++){
         if(employees[i].role="Manager"){
-          throw "Error: You can only have one manager of the team.  Please remove existing manager if you would like to add another."
+          console.log("Error: You can only have one manager of the team.  Please remove existing manager if you would like to add another.");
+          process.exit();;
         }
       }
     }
     if(!(role == "manager" || role=="engineer" || role=="intern")){
-        throw "Error: Role must be manager, engineer or intern";
+        console.log("Error: Role must be manager, engineer or intern");
+        process.exit();
     }
     remainingQuest();
 
@@ -130,6 +141,7 @@ function remainingQuest() {
           }
           employees.push(inputEmployee);
           fs.writeFile("employee.txt",JSON.stringify(employees, null, 2), err=> {if(err) throw err;});
+          purpose();
 
       });}
 
@@ -161,10 +173,11 @@ function remainingQuest() {
           if(remEmp != null){
             employees.splice(remEmp,1);
             fs.writeFile("employee.txt",JSON.stringify(employees, null, 2), err=> {if(err) throw err;});
+            console.log("Team member removed.")
           }else{
             throw "Error: There is no employee with this ID."
           }
-      
+          purpose();
         });
 
       }
