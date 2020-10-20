@@ -123,7 +123,8 @@ function remainingQuest() {
 
           for(let i=0; i<employees.length; i++){
             if(id==employees[i].id){
-              throw "Error: You may only have one employee assigned this ID."
+              console.log("Error: You may only have one employee assigned this ID.");
+              process.exit();
             }
           }
 
@@ -175,7 +176,8 @@ function remainingQuest() {
             fs.writeFile("employee.txt",JSON.stringify(employees, null, 2), err=> {if(err) throw err;});
             console.log("Team member removed.")
           }else{
-            throw "Error: There is no employee with this ID."
+            console.log("Error: There is no employee with this ID.");
+            process.exit();
           }
           purpose();
         });
