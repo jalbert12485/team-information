@@ -33,12 +33,25 @@ const specificQuestions={   manager: [new Question("input", "What is the employe
 
 
 // Gets the existing employee information from the saved file.
-fs.readFile("employee.txt","utf8",function(err,data){
-    if(err) throw err;
+// fs.readFile("employee.txt","utf8",function(err,data){
+//     if(err) throw err;
 
+//     employees=JSON.parse(data);
+// });
+
+init();
+
+function init(){
+  employees=[];
+  fs.readFile("employee.txt","utf8",function(err,data){
+    if(err){ throw err;}else{
+    if(data != ""){
     employees=JSON.parse(data);
+    }
     purpose();
-});
+};
+})}
+
 
 
 
@@ -90,15 +103,16 @@ inquirer
     role=response.role.toLowerCase();
     if(role=="manager"){
       for(let i=0; i<employees.length;i++){
-        if(employees[i].role="Manager"){
+        if(employees[i].role=="Manager"){
           console.log("Error: You can only have one manager of the team.  Please remove existing manager if you would like to add another.");
-          process.exit();;
+          return init();
+          
         }
       }
     }
     if(!(role == "manager" || role=="engineer" || role=="intern")){
         console.log("Error: Role must be manager, engineer or intern");
-        process.exit();
+        return init();
     }
     remainingQuest();
 
@@ -124,7 +138,7 @@ function remainingQuest() {
           for(let i=0; i<employees.length; i++){
             if(id==employees[i].id){
               console.log("Error: You may only have one employee assigned this ID.");
-              process.exit();
+              return init();
             }
           }
 
@@ -141,8 +155,13 @@ function remainingQuest() {
                   break;
           }
           employees.push(inputEmployee);
-          fs.writeFile("employee.txt",JSON.stringify(employees, null, 2), err=> {if(err) throw err;});
-          purpose();
+          fs.writeFile("employee.txt",JSON.stringify(employees, null, 2), err=> {if(err){ 
+            throw err;
+          }else{
+            return init();
+          }
+        });
+          
 
       });}
 
@@ -163,8 +182,12 @@ function remainingQuest() {
         .then(function(response) {
           if(response.id=="All"){ 
             employees=[];             
-            fs.writeFile("employee.txt",JSON.stringify(employees, null, 2), err=> {if(err) throw err;}); 
-            return;}
+            fs.writeFile("employee.txt",JSON.stringify(employees, null, 2), err=> {if(err){
+              throw err;}else{
+                return init();
+              }
+            });
+           }else{         
           let remEmp;
           for(let i=0; i < employees.length; i++){
             if(employees[i].id==response.id){
@@ -172,14 +195,22 @@ function remainingQuest() {
             }
           }
           if(remEmp != null){
+            if(employees.length==1){
+              employees=[];
+            }else{
             employees.splice(remEmp,1);
-            fs.writeFile("employee.txt",JSON.stringify(employees, null, 2), err=> {if(err) throw err;});
-            console.log("Team member removed.")
+            }
+            fs.writeFile("employee.txt",JSON.stringify(employees, null, 2), err=> {if(err){ 
+              throw err;}else{ 
+              console.log("Team member removed.");
+              return init();
+            }
+            });
           }else{
             console.log("Error: There is no employee with this ID.");
-            process.exit();
-          }
-          purpose();
+            return init();
+          }}
+          
         });
 
       }

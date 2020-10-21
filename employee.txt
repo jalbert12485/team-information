@@ -9,14 +9,14 @@
   {
     "name": "Justin",
     "id": "2",
-    "email": "jalbert@carthage.edu",
+    "email": "justin@gmail.com",
     "role": "Engineer",
-    "github": "jalbert12485"
+    "github": "justin"
   },
   {
     "name": "Arthur",
     "id": "3",
-    "email": "art@gmail.com",
+    "email": "arthur@gmail.com",
     "role": "Intern",
     "school": "Home"
   },

@@ -1,4 +1,4 @@
-const employees=[{"name":"Paula","id":"1","email":"paula@gmail.com","role":"Manager","officeNumber":"1"},{"name":"Justin","id":"2","email":"jalbert@carthage.edu","role":"Engineer","github":"jalbert12485"},{"name":"Arthur","id":"3","email":"art@gmail.com","role":"Intern","school":"Home"},{"name":"Teddy","id":"4","email":"teddy@gmail.com","role":"Intern","school":"Home"}];
+const employees=[{"name":"Paula","id":"1","email":"paula@gmail.com","role":"Manager","officeNumber":"1"},{"name":"Justin","id":"2","email":"justin@gmail.com","role":"Engineer","github":"justin"},{"name":"Arthur","id":"3","email":"arthur@gmail.com","role":"Intern","school":"Home"},{"name":"Teddy","id":"4","email":"teddy@gmail.com","role":"Intern","school":"Home"}];
   
   let viewedEmployee=employees[employees.length-1];
   
